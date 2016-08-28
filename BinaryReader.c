@@ -4,6 +4,7 @@
 //char *ByteToBinary(unsigned char inputByte)
 void ByteToBinary(unsigned char inputByte)
 {
+	//printf("%c:", inputByte);
 	int i = inputByte;
 	
 	int bitplace = 128;
@@ -12,7 +13,8 @@ void ByteToBinary(unsigned char inputByte)
 	
 	while(bitplace >= 1)
 	{
-		if( i > bitplace )
+		//printf("%d>%d?", i, bitplace); 
+		if( i >= bitplace )
 		{
 			i = i - bitplace;
 			stringplace = '1';
@@ -35,14 +37,14 @@ int main(void)
 	while(!feof(filestream))
 	{
 		bytesread = fread(buff, 1, sizeof(buff), filestream);
-		printf("(%d)", bytesread);
+		//printf("(%d)", bytesread);
 		for(int i = 0; i < bytesread; i++)
 		{
-			printf("%c", buff[i]);
 			//printf("%c: ", buff[i]);
-			//ByteToBinary(buff[i]);
+			ByteToBinary(buff[i]);
 			printf(" ");
 		}
 	}
+	printf("\n");
   	return 0;
 }

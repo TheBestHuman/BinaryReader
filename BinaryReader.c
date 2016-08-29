@@ -33,14 +33,14 @@ char *ByteToBinary(unsigned char inputByte)
 void ConvertToBinaryText(char* inputfilename, char* outputfilename)
 {
 	unsigned char buff[255];
-	FILE *filestream;
+	FILE *inputfilestream;
 	int bytesread = 0;
 
 	char *currentbyte = "\0";
-	filestream = fopen(inputfilename, "rb");
-	while(!feof(filestream))
+	inputfilestream = fopen(inputfilename, "rb");
+	while(!feof(inputfilestream))
 	{
-		bytesread = fread(buff, 1, sizeof(buff), filestream);
+		bytesread = fread(buff, 1, sizeof(buff), inputfilestream);
 		//printf("(%d)", bytesread);
 		for(int i = 0; i < bytesread; i++)
 		{
@@ -49,7 +49,7 @@ void ConvertToBinaryText(char* inputfilename, char* outputfilename)
 			printf("%s ", currentbyte);
 		}
 	}
-	fclose(filestream);
+	fclose(inputfilestream);
 }
 int main(int argc, char **argv)
 {

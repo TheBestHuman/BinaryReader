@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+#include <string.h>
 
 //char *ByteToBinary(unsigned char inputByte)
 void ByteToBinary(unsigned char inputByte)
@@ -27,13 +27,23 @@ void ByteToBinary(unsigned char inputByte)
 	
 }
 
-int main(void)
+int main(int argc, char **argv)
 {
+
+	char *filename;
+	//printf("%d:  ", argc);
+	if(argc > 1)
+		filename = argv[1];
+	else
+		filename = "firstfile.bin";
+
+	//printf("%s", filename);
+
 	unsigned char buff[255];
 	FILE *filestream;
 	int bytesread = 0;
 
-	filestream = fopen("firstfile.bin", "rb");
+	filestream = fopen(filename, "rb");
 	while(!feof(filestream))
 	{
 		bytesread = fread(buff, 1, sizeof(buff), filestream);

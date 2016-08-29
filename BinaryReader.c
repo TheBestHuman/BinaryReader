@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-char *ByteToBinary(unsigned char inputByte)
+void ByteToBinary(unsigned char inputByte, char* returnbyte)
 {
 	//printf("%c:", inputByte);
 	int i = inputByte;
@@ -24,20 +24,27 @@ char *ByteToBinary(unsigned char inputByte)
 			stringplace = "0";
 		bitplace = bitplace/2;
 		strcat(retstring, stringplace);
-		printf("%s",stringplace);
+		//printf("%s",stringplace);
 	}
-	char* retval = retstring;
-	return retval;
+	strcpy(returnbyte, retstring);
+	//printf("%s ", returnbyte);
 	
 }
 void ConvertToBinaryText(char* inputfilename, char* outputfilename)
 {
 	unsigned char buff[255];
 	FILE *inputfilestream;
+	FILE *outputfilestream;
 	int bytesread = 0;
 
-	char *currentbyte = "\0";
+	char currentbyte[9] = "";
 	inputfilestream = fopen(inputfilename, "rb");
+	int outputfileflag = 0;
+	if(strcmp(outputfilename, "") != 0)
+	{
+		outputfilestream = fopen(outputfilename, "w");
+		outputfileflag = 1;
+	}
 	while(!feof(inputfilestream))
 	{
 		bytesread = fread(buff, 1, sizeof(buff), inputfilestream);
@@ -45,9 +52,16 @@ void ConvertToBinaryText(char* inputfilename, char* outputfilename)
 		for(int i = 0; i < bytesread; i++)
 		{
 			//printf("%c: ", buff[i]);
-			currentbyte = ByteToBinary(buff[i]);
-			printf("%s ", currentbyte);
+			ByteToBinary(buff[i], currentbyte);
+			if(outputfileflag == 1)
+				fprintf(outputfilestream, "%s ", currentbyte);
+			else
+				printf("%s ", currentbyte);
 		}
+	}
+	if(outputfileflag == 1)
+	{
+		fclose(outputfilestream);
 	}
 	fclose(inputfilestream);
 }

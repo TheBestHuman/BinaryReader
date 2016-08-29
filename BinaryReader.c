@@ -2,7 +2,6 @@
 #include <string.h>
 
 char *ByteToBinary(unsigned char inputByte)
-//void ByteToBinary(unsigned char inputByte)
 {
 	//printf("%c:", inputByte);
 	int i = inputByte;
@@ -31,19 +30,8 @@ char *ByteToBinary(unsigned char inputByte)
 	return retval;
 	
 }
-
-int main(int argc, char **argv)
+void ConvertToBinaryText(char* inputfilename, char* outputfilename)
 {
-
-	char *inputfilename;
-	//printf("%d:  ", argc);
-	if(argc > 1)
-		inputfilename = argv[1];
-	else
-		inputfilename = "firstfile.bin";
-
-	//printf("%s", inputfilename);
-
 	unsigned char buff[255];
 	FILE *filestream;
 	int bytesread = 0;
@@ -62,6 +50,26 @@ int main(int argc, char **argv)
 		}
 	}
 	fclose(filestream);
+}
+int main(int argc, char **argv)
+{
+
+	char *inputfilename;
+	char *outputfilename;
+
+	//printf("%d:  ", argc);
+	if(argc > 1)
+		inputfilename = argv[1];
+	else
+		inputfilename = "firstfile.bin";
+
+	if(argc > 2)
+		outputfilename = argv[2];
+	else
+		outputfilename = "";
+
+	ConvertToBinaryText(inputfilename, outputfilename);
+
 	printf("\n");
   	return 0;
 }
